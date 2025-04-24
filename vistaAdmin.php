@@ -13,7 +13,7 @@ $pokemones= [] ;
 
 for ($i=0; $i < mysqli_num_rows($datos); $i++) {
     $fila = mysqli_fetch_array($datos);
-  // echo "Numero: " . $fila["numero"] . ' - ' . "Nombre: " . $fila["nombre"] . ' - ' . "Tipo: " . $fila["tipo"] . ' - ' . "Descripcion: " . $fila["descripcion"] . ' - ' . "Region: " . $fila["region"] . "<br />";
+    // echo "Numero: " . $fila["numero"] . ' - ' . "Nombre: " . $fila["nombre"] . ' - ' . "Tipo: " . $fila["tipo"] . ' - ' . "Descripcion: " . $fila["descripcion"] . ' - ' . "Region: " . $fila["region"] . "<br />";
     $pokemones[] = $fila;
 }
 ?>
@@ -28,18 +28,20 @@ for ($i=0; $i < mysqli_num_rows($datos); $i++) {
     <link href="css/colores.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <style>
-         h1 {
-             font-family: 'Montserrat';
-         }
+        h1 {
+            font-family: 'Montserrat';
+        }
     </style>
 </head>
 <body class="bg-green-200">
 
 <div class="container mt-4">
     <div class="container d-flex justify-content-between align-items-center my-4 flex-wrap gap-3">
-    <img src="logo.png" class="img-fluid rounded" style="width: 80px; height: auto;" alt="Logo">
-    <h1 class="mb-0 flex-grow-1 text-center fw-bold">Pokedex</h1>
-    <button class="btn btn-dark">Iniciar sesión</button>
+        <img src="logo.png" class="img-fluid rounded" style="width: 80px; height: auto;" alt="Logo">
+        <h1 class="mb-0 flex-grow-1 text-center fw-bold">Pokedex</h1>
+        <!--<button class="btn btn-outline-secondary">Login</button> -->
+        <!-- ACA TENDRIA QUE VERSE EL USUARIO QUE SE REGISTRO Y LOGUEO -->
+        <p>NOMBRE USUARIO</p>
     </div>
     <form action="#" class="d-flex">
         <input type="text" name="buscador" id="buscador" placeholder="busque a el pokemon que desee" class="form-control me-2">
@@ -59,9 +61,13 @@ for ($i=0; $i < mysqli_num_rows($datos); $i++) {
                     </div>
 
                     <div class="card-footer mt-auto">
-                       <!-- <img src="tiposPokemones/tipo<?= ucfirst($poke['tipo']) ?>.png" class="w-25">-->
+                        <!-- <img src="tiposPokemones/tipo<?= ucfirst($poke['tipo']) ?>.png" class="w-25">-->
 
                         <p class="card-text text-center"><?= $poke['descripcion'] ?></p>
+                        <div class="container d-flex justify-content-around">
+                            <button class="btn btn-outline-secondary">Eliminar</button>
+                            <button class="btn btn-outline-secondary">Modificar</button>
+                        </div>
 
                     </div>
                 </div>
@@ -72,3 +78,8 @@ for ($i=0; $i < mysqli_num_rows($datos); $i++) {
 
 </body>
 </html>
+
+
+
+
+
