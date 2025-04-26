@@ -52,7 +52,7 @@ for ($i=0; $i < mysqli_num_rows($datos); $i++) {
 
 <div class="container mt-4">
     <div class="container d-flex justify-content-between align-items-center my-4 flex-wrap gap-3">
-        <img src="pokebola.png" class="img-fluid rounded" style="width: 50px; height: auto;" alt="Logo">
+        <img src="logos/pokebola.png" class="img-fluid rounded" style="width: 50px; height: auto;" alt="Logo">
         <h1 class="mb-0 flex-grow-1 text-center fw-bold">Pokedex</h1>
         <!-- ACA TENDRIA QUE VERSE EL USUARIO QUE SE REGISTRO Y LOGUEO -->
         <p>NOMBRE USUARIO</p>
@@ -76,8 +76,6 @@ for ($i=0; $i < mysqli_num_rows($datos); $i++) {
                     </div>
 
                     <div class="card-footer mt-auto">
-
-
 
                         <div class="container d-flex justify-content-around">
                             <form action="acciones.php" method="post" enctype="multipart/form-data" class="container d-flex justify-content-around">
