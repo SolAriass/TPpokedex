@@ -48,6 +48,7 @@ for ($i=0; $i < mysqli_num_rows($datos); $i++) {
         <input type="submit" name="enviar" id="enviar" value="buscar" class="btn btn-dark">
     </form>
 
+    <a href="agregarPokemon.php">Agregar Pokemon</a>
     <div class="row mt-4">
         <?php foreach ($pokemones as $poke): ?>
             <div class="col-md-4 mb-4">
