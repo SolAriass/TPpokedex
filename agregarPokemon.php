@@ -47,44 +47,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/colores.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <style>
         h1 {
-            font-family: 'Montserrat';
+            font-family: "Exo 2";
+            font-optical-sizing: auto;
+            font-weight: <weight>;
+            font-style: normal;
         }
         input::placeholder{
-            color: white !important;
+            color: black !important;
         }
 
     </style>
 </head>
-<body class="bg-green-200">
-<h1 class="text-center m-4">Ingrese los datos para agregar a su pokemon!</h1>
-<div class="container w-50">
-<form action="agregarPokemon.php" method="post" enctype="multipart/form-data">
+<body class="bg-gray-200 fuente">
+
+<div class="container w-75 justify-content-center align-items-center">
+<form action="agregarPokemon.php" method="post" enctype="multipart/form-data" class="bg-gray-400 p-4 m-3 rounded d-flex justify-content-center flex-column">
+    <div class="container d-flex justify-content-center">
+        <img src="logopokebola.png" class="img-fluid" style="width: 7.5em; height: auto;" alt="Logo">
+        <h1 class="text-center">Agregue su pokemon</h1>
+        <img src="logopokebola.png" class="img-fluid" style="width: 7.5em; height: auto" alt="Logo">
+    </div>
+    <p class="text-center blockquote-footer m-2">ingrese los datos requeridos para agregar a su pokemon con exito</p>
     <div class="mb-3 mt-3">
-        <label for="numero" class="form-label fw-bold">PokeNumero:</label>
-        <input type="number" class="form-control bg-black transparencia border-black text-white" id="numero" placeholder="ingrese el numero del pokemon" name="numero">
+        <label for="numero" class="form-label fw-bold">Número del pokemon</label>
+        <input type="number" class="form-control transparencia border-black " id="numero" placeholder="Ej: 520, 200, etc..." name="numero">
     </div>
     <div class="mb-3 mt-3">
-        <label for="nombre" class="form-label fw-bold">PokeNombre:</label>
-        <input type="text" class="form-control bg-black transparencia border-black text-white" id="nombre" placeholder="ingrese el nombre del pokemon" name="nombre">
+        <label for="nombre" class="form-label fw-bold">Nombre del pokemon</label>
+        <input type="text" class="form-control transparencia border-black" id="nombre" placeholder="Ej: pikachu, raichu, etc..." name="nombre">
     </div>
     <div class="mb-3 mt-3">
-        <label for="imagen" class="form-label fw-bold">PokeImagen:</label>
-        <input type="file" class="form-control bg-black transparencia border-black text-white" id="imagen" name="imagen">
+        <label for="imagen" class="form-label fw-bold">Imagen del pokemon</label>
+        <input type="file" class="form-control transparencia border-black" id="imagen" name="imagen">
     </div>
     <div class="mb-3 mt-3">
-        <label for="descripcion" class="form-label fw-bold">PokeDescripcion:</label>
-        <input type="text" class="form-control bg-black transparencia border-black text-white" id="descripcion" placeholder="ingrese la descripcion del pokemon" name="descripcion">
+        <label for="descripcion" class="form-label fw-bold">Descripcion del pokemon</label>
+        <input type="text" class="form-control transparencia border-black" id="descripcion" placeholder="Ej: es una criatura veloz..." name="descripcion">
     </div>
     <div class="mb-3 mt-3">
-        <label for="region" class="form-label fw-bold">PokeRegion:</label>
-        <input type="text" class="form-control bg-black transparencia border-black text-white" id="region" placeholder="ingrese la region del pokemon" name="region">
+        <label for="region" class="form-label fw-bold">Region del pokemon</label>
+        <input type="text" class="form-control transparencia border-black" id="region" placeholder="Ej: Kanto, Johto, etc..." name="region">
     </div>
     <div class="mb-3 mt-3">
-        <label for="tipo" class="form-label fw-bold ">PokeTipo:</label>
-        <select class="form-select bg-black transparencia border-black text-white" name="tipo" id="tipo">
-            <option value="0" selected disabled>seleccionar un tipo de pokemon</option>
+        <label for="tipo" class="form-label fw-bold ">Tipo del pokemon</label>
+        <select class="form-select transparencia border-black" name="tipo" id="tipo">
+            <option value="0" selected disabled>Seleccionar un tipo de pokemon</option>
             <option value="agua">agua</option>
             <option value="fuego">fuego</option>
             <option value="bicho">bicho</option>
@@ -98,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     </div>
 
-    <button type="submit" class="btn btn-dark">Agregue su pokemon</button>
+    <button type="submit" class="btn btn-dark mb-2 mt-3 w-50 align-self-center">Agregue su pokemon</button>
 </form>
 </div>
 </body>
