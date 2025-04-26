@@ -128,7 +128,9 @@ if (isset($_GET['buscador']) && $_GET['buscador'] !== '') {
                     </h5>
 
                     <div class="d-flex justify-content-center align-items-center flex-grow-1 p-3">
+                        <a href="vistaPokemon.php?id=<?= $poke['id'] ?>">
                         <img src="<?= $poke['imagen'] ?>" class="img-fluid m-4" style="max-height: 150px;">
+                        </a>
                     </div>
 
                     <div class="card-footer mt-auto">
