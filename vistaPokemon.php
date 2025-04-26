@@ -17,7 +17,7 @@ if ($datos && mysqli_num_rows($datos) > 0) {
 ?>
 
 
-//mostrar datos de pokemon(falta diseño)
+
 <?php if ($poke): ?>
     <img src="<?= htmlspecialchars($poke['imagen']) ?>" class="img-fluid m-4" style="max-height: 150px;">
     <img src="tiposPokemones/tipo<?= ucfirst($poke['tipo']) ?>.png" style="width: 28px">
