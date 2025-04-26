@@ -5,11 +5,12 @@ $baseDeDatos = mysqli_connect('localhost', 'root', '', 'pokedex') or die("Error 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if(isset($_POST["nombre"]) && isset($_POST["descripcion"]) && isset($_POST["tipo"]) && isset($_POST["region"]) &&
-    isset($_POST["numero"]) && isset($_FILES["imagen"]) && $_FILES["imagen"]["error"] == 0) {
+    isset($_POST["numero"]) && isset($_POST['descripcionLarga']) && isset($_FILES["imagen"]) && $_FILES["imagen"]["error"] == 0) {
 
         $nombre = $_POST["nombre"];
         $descripcion = $_POST["descripcion"];
         $tipo = $_POST["tipo"];
+        $descripcionLarga = $_POST["descripcionLarga"];
 
         $nombreImagen = $_FILES["imagen"]["name"]; //nombre archivo
         $rutaTemporal = $_FILES["imagen"]["tmp_name"];
@@ -25,8 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $imagen = 'fotoPokemones/' . $_POST["nombre"] . ".png";
 
 
-        $query = "INSERT INTO pokemones (numero, nombre, imagen, tipo, descripcion, region)
-              VALUES ('$numero', '$nombre', '$imagen', '$tipo', '$descripcion', '$region')";
+        $query = "INSERT INTO pokemones (numero, nombre, imagen, tipo, descripcion, descripcionLarga ,region)
+              VALUES ('$numero', '$nombre', '$imagen', '$tipo', '$descripcion','$descripcionLarga' , '$region')";
 
         mysqli_query($baseDeDatos, $query);
 
@@ -86,6 +87,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="mb-3 mt-3">
         <label for="descripcion" class="form-label fw-bold">Descripcion del pokemon</label>
         <input type="text" class="form-control transparencia border-black" id="descripcion" placeholder="Ej: es una criatura veloz..." name="descripcion">
+    </div>
+    <div class="mb-3 mt-3">
+        <label for="descripcion" class="form-label fw-bold">Descripcion del pokemon</label>
+        <textarea name="descripcion" id="descripcion" cols="10" rows="3" class="form-control transparencia border-black" placeholder="Ej: Es la evolución de Slowpoke cuando una Shellder se aferra a su cola. Aunque parece distraído y lento, cuenta con poderes psíquicos notables y una gran resistencia. Es tranquilo por naturaleza y rara vez se altera...."></textarea>
+
     </div>
     <div class="mb-3 mt-3">
         <label for="region" class="form-label fw-bold">Region del pokemon</label>

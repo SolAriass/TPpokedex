@@ -52,7 +52,7 @@ if (isset($_SESSION['usuario'])) {
 
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
   <div class="login-container text-center">
-    <img src="logo.png" class="logo" alt="Logo Pokedex">
+    <img src="logos/logopokebola.png" class="logo" alt="Logo Pokedex">
 
     <h2 class="fw-bold mb-4">Iniciar sesión</h2>
 
