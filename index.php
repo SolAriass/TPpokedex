@@ -37,7 +37,7 @@ for ($i=0; $i < mysqli_num_rows($datos); $i++) {
 
 <div class="container mt-4">
     <div class="container d-flex justify-content-between align-items-center my-4 flex-wrap gap-3">
-    <img src="logopoke.png" class="img-fluid rounded" style="width: 50px; height: auto;" alt="Logo">
+    <img src="logo.png" class="img-fluid rounded" style="width: 80px; height: auto;" alt="Logo">
     <h1 class="mb-0 flex-grow-1 text-center fw-bold">Pokedex</h1>
     <button class="btn btn-dark">Iniciar sesión</button>
     </div>
