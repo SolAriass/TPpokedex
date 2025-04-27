@@ -68,6 +68,12 @@ if ($datos && mysqli_num_rows($datos) > 0) {
                             <img src="tiposPokemones/tipo<?= ucfirst($poke['tipo']) ?>.png" style="width: 32px;">
                         </p>
                         <p class="card-text">
+                            <strong>Categoria:</strong> <?= $poke['categoria'] ?>
+                        </p>
+                        <p class="card-text">
+                            <strong>Habilidad:</strong> <?= $poke['habilidad'] ?>
+                        </p>
+                        <p class="card-text">
                             <strong>Región:</strong> <?= $poke['region'] ?>
                         </p>
                     </div>
