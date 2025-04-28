@@ -27,6 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $regionPokemon = isset($_POST['region']) ? $_POST['region'] : '';
     $tipoPokemon = isset($_POST['tipo']) ? $_POST['tipo'] : '';
     $imagenPokemon = isset($_FILES['imagen'] ) ? $_FILES['imagen'] : null;
+    $categoriaPokemon = isset($_POST['categoria']) ? $_POST['categoria'] : '';
+    $habilidadPokemon = isset($_POST['habilidad']) ? $_POST['habilidad'] : '';
 
     if($nombrePokemon != ''){
         $sql = "UPDATE pokemones SET nombre = '$nombrePokemon' WHERE id= '$id'";
@@ -50,6 +52,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     if($tipoPokemon != ''){
         $sql = "UPDATE pokemones SET tipo = '$tipoPokemon' WHERE id= '$id'";
+        mysqli_query($baseDeDatos, $sql);
+    }
+    if($categoriaPokemon != ''){
+        $sql = "UPDATE pokemones SET categoria = '$categoriaPokemon' WHERE id= '$id'";
+        mysqli_query($baseDeDatos, $sql);
+    }
+    if($habilidadPokemon != ''){
+        $sql = "UPDATE pokemones SET habilidad = '$habilidadPokemon' WHERE id= '$id'";
         mysqli_query($baseDeDatos, $sql);
     }
     if($imagenPokemon != null){
@@ -116,11 +126,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p class="text-center blockquote-footer m-2">modifique los datos que desee a su pokemon favorito</p>
         <div class="mb-3 mt-3">
             <label for="numero" class="form-label fw-bold">Número del pokemon</label>
-            <input type="number" class="form-control transparencia border-black " id="numero" placeholder="Ej: 520, 200, etc..." name="numero" value="<?= $pokemon['numero'] ?>">
+            <input type="number" class="form-control transparencia border-black " id="numero" name="numero" value="<?= $pokemon['numero'] ?>">
         </div>
         <div class="mb-3 mt-3">
             <label for="nombre" class="form-label fw-bold">Nombre del pokemon</label>
-            <input type="text" class="form-control transparencia border-black" id="nombre" placeholder="Ej: pikachu, raichu, etc..." name="nombre" value="<?= $pokemon['nombre']?>">
+            <input type="text" class="form-control transparencia border-black" id="nombre" name="nombre" value="<?= $pokemon['nombre']?>">
         </div>
         <div class="mb-3 mt-3">
             <label for="imagen" class="form-label fw-bold">Imagen del pokemon</label>
@@ -128,16 +138,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <div class="mb-3 mt-3">
             <label for="descripcion" class="form-label fw-bold">Descripcion del pokemon</label>
-            <input type="text" class="form-control transparencia border-black" id="descripcion" placeholder="Ej: es una criatura veloz..." name="descripcion" value="<?= $pokemon['descripcion']?>">
+            <input type="text" class="form-control transparencia border-black" id="descripcion" name="descripcion" value="<?= $pokemon['descripcion']?>">
         </div>
         <div class="mb-3 mt-3">
             <label for="descripcionLarga" class="form-label fw-bold">Descripcion del pokemon</label>
-            <textarea name="descripcionLarga" id="descripcionLarga" cols="10" rows="3" class="form-control transparencia border-black" placeholder="Ej: Es la evolución de Slowpoke cuando una Shellder se aferra a su cola. Aunque parece distraído y lento, cuenta con poderes psíquicos notables y una gran resistencia. Es tranquilo por naturaleza y rara vez se altera...."><?= $pokemon['descripcionLarga']?></textarea>
+            <textarea name="descripcionLarga" id="descripcionLarga" cols="10" rows="3" class="form-control transparencia border-black"><?= $pokemon['descripcionLarga']?></textarea>
 
         </div>
         <div class="mb-3 mt-3">
             <label for="region" class="form-label fw-bold">Region del pokemon</label>
-            <input type="text" class="form-control transparencia border-black" id="region" placeholder="Ej: Kanto, Johto, etc..." name="region" value="<?= $pokemon['region']?>">
+            <input type="text" class="form-control transparencia border-black" id="region" name="region" value="<?= $pokemon['region']?>">
+        </div>
+        <div class="mb-3 mt-3">
+            <label for="habilidad" class="form-label fw-bold">Habilidad del pokemon</label>
+            <input type="text" class="form-control transparencia border-black" id="habilidad" name="habilidad" value="<?= $pokemon['habilidad'] ?>">
+        </div>
+        <div class="mb-3 mt-3">
+            <label for="categoria" class="form-label fw-bold">Categoria del pokemon</label>
+            <input type="text" class="form-control transparencia border-black" id="categoria" name="categoria" value="<?= $pokemon['categoria']?>">
         </div>
         <div class="mb-3 mt-3">
             <label for="tipo" class="form-label fw-bold ">Tipo del pokemon</label>

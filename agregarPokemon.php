@@ -12,7 +12,7 @@ $baseDeDatos = mysqli_connect('localhost', 'root', '', 'pokedex') or die("Error 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if(isset($_POST["nombre"]) && isset($_POST["descripcion"]) && isset($_POST["tipo"]) && isset($_POST["region"]) &&
-    isset($_POST["numero"]) && isset($_POST['descripcionLarga']) && isset($_FILES["imagen"]) && $_FILES["imagen"]["error"] == 0) {
+    isset($_POST["numero"]) && isset($_POST['descripcionLarga']) && isset($_FILES["imagen"]) && isset($_POST["categoria"]) && isset($_POST["habilidad"]) && $_FILES["imagen"]["error"] == 0) {
 
         $nombre = $_POST["nombre"];
         $descripcion = $_POST["descripcion"];
@@ -29,12 +29,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $numero = $_POST["numero"];
         $region = $_POST["region"];
+        $categoria = $_POST["categoria"];
+        $habilidad = $_POST["habilidad"];
 
         $imagen = 'fotoPokemones/' . ucfirst($nombre) . ".png";
 
 
-        $query = "INSERT INTO pokemones (numero, nombre, imagen, tipo, descripcion, descripcionLarga ,region)
-              VALUES ('$numero', '$nombre', '$imagen', '$tipo', '$descripcion','$descripcionLarga' , '$region')";
+        $query = "INSERT INTO pokemones (numero, nombre, imagen, tipo, habilidad, categoria, descripcion, descripcionLarga ,region)
+              VALUES ('$numero', '$nombre', '$imagen', '$tipo', '$habilidad', '$categoria', '$descripcion','$descripcionLarga' , '$region')";
 
         mysqli_query($baseDeDatos, $query);
 
@@ -103,6 +105,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="mb-3 mt-3">
         <label for="region" class="form-label fw-bold">Region del pokemon</label>
         <input type="text" class="form-control transparencia border-black" id="region" placeholder="Ej: Kanto, Johto, etc..." name="region">
+    </div>
+    <div class="mb-3 mt-3">
+        <label for="habilidad" class="form-label fw-bold">Habilidad del pokemon</label>
+        <input type="text" class="form-control transparencia border-black" id="habilidad" placeholder="Ej: Vista Lince, etc... " name="habilidad">
+    </div>
+    <div class="mb-3 mt-3">
+        <label for="categoria" class="form-label fw-bold">Categoria del pokemon</label>
+        <input type="text" class="form-control transparencia border-black" id="categoria" placeholder="Ej: Pajarito, etc... " name="categoria">
     </div>
     <div class="mb-3 mt-3">
         <label for="tipo" class="form-label fw-bold ">Tipo del pokemon</label>
