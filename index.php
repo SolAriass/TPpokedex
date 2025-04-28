@@ -84,7 +84,7 @@ if (isset($_GET['buscador']) && $_GET['buscador'] !== '') {
 <body class="bg-gray-200 fuente">
 
 <div class="container mt-4">
-    <div class="container d-flex justify-content-between align-items-center my-4 flex-wrap gap-3">
+    <div class="container d-flex justify-content-between align-items-baseline my-4 flex-wrap gap-3">
         <a href="index.php">
             <img src="logos/pokebola.png" class="img-fluid rounded" style="width: 50px; height: auto;" alt="Logo">
         </a>
@@ -138,12 +138,20 @@ if (isset($_GET['buscador']) && $_GET['buscador'] !== '') {
 
                         <!-- esto se deberia ver cuando inicia sesion -->
                         <?php if (isset($_SESSION['usuario'])): ?>
-                        <form action="acciones.php" method="post" enctype="multipart/form-data" class="container d-flex justify-content-around">
-                            <input type="hidden" value="<?=$poke['id']?>" name="id" id="id">
-                            <input type="hidden" value="<?=$poke['nombre']?>" name="nombrepoke" id="nombrepoke">
-                            <input class="btn btn-outline-dark" type="submit" name="eliminar" id="eliminar" value="eliminar" onclick="confirm('desea eliminar?')">
-                            <input class="btn btn-outline-dark" type="submit" name="modificar" id="modificar" value="modificar">
+                        <div class="container d-flex justify-content-around">
+
+
+                        <form action="borrarPokemon.php" method="post" enctype="multipart/form-data" class="" id="formEliminar" onsubmit="return confirm('¿Seguro que desea eliminar a <?=$poke['nombre'] ?>?')">
+                            <input type="hidden" value="<?=$poke['id']?>" name="idPoke">
+                            <input type="hidden" value="<?=$poke['nombre']?>" name="nombrepoke">
+
+                            <input class="btn btn-outline-dark" type="submit" name="eliminar" id="eliminar" value="Eliminar">
                         </form>
+
+                        <a href="modificar.php?id=<?=$poke['id']?>" class="btn btn-outline-dark">Modificar</a>
+                        </div>
+
+
                         <?php endif; ?>
                     </div>
                 </div>
@@ -151,6 +159,8 @@ if (isset($_GET['buscador']) && $_GET['buscador'] !== '') {
         <?php endforeach; ?>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

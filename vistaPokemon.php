@@ -1,5 +1,13 @@
 <?php
 
+session_start();
+
+if (!isset($_SESSION['usuario'])) {
+    header('Location: index.php');
+    exit;
+}
+
+
 //verificar el id
 if (isset($_GET['id'])){
     $id = $_GET['id'];
@@ -10,6 +18,7 @@ $baseDeDatos = mysqli_connect('localhost', 'root', '', 'pokedex') or die("Error 
 // Obtener datos
 $datos = mysqli_query($baseDeDatos, "SELECT * FROM pokemones WHERE id = $id");
 
+$poke = '';
 //verificar si volvio algo
 if ($datos && mysqli_num_rows($datos) > 0) {
     $poke= mysqli_fetch_assoc($datos);
@@ -19,7 +28,7 @@ if ($datos && mysqli_num_rows($datos) > 0) {
 <!--
 
 <?php if ($poke): ?>
-    <img src="<?= $poke['imagen'] ?>" class="img-fluid m-4" style="max-height: 150px;">
+    <img src="<?= htmlspecialchars($poke['imagen']) ?>" class="img-fluid m-4" style="max-height: 150px;">
     <img src="tiposPokemones/tipo<?= ucfirst($poke['tipo']) ?>.png" style="width: 28px">
     #<?= $poke['numero'] ?> -
     <?= $poke['nombre'] ?>
@@ -36,40 +45,65 @@ if ($datos && mysqli_num_rows($datos) > 0) {
     <link href="css/colores.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+    h1 {
+    font-family: "Exo 2";
+    font-optical-sizing: auto;
+    font-weight: <weight>;
+        font-style: normal;
+        }
+    </style>
 </head>
 <body class="bg-gray-200 fuente">
 
 
-<div class="container d-flex justify-content-between align-items-center py-3">
+<div class="container-fluid d-flex shadow rounded justify-content-between align-items-center py-3 bg-gray-100 px-5">
     <a href="index.php">
         <img src="logos/pokebola.png" class="img-fluid rounded" style="width: 50px; height: auto;" alt="Logo">
     </a>
 
     <h1 class="mb-0 flex-grow-1 text-center fw-bold">Pokedex</h1>
 
-    <button> Volver al inicio </button>
+    <a href="index.php">
+        <img src="logos/pokebola.png" class="img-fluid rounded" style="width: 50px; height: auto;" alt="Logo">
+    </a>
 </div>
 
-<!-- Contenido principal -->
-<div class="container-fluid d-flex justify-content-center align-items-center" style="min-height: calc(100vh - 100px);">
-    <!-- Resto del contenido -->
+
+<div class="container-fluid d-flex justify-content-center align-items-start" style="min-height: calc(80vh); padding-top: 70px;">
+
     <div class="card w-75" style="max-width: 1000px;">
         <div class="row g-0">
             <?php if ($poke): ?>
-                <div class="col-md-4 d-flex flex-column align-items-center justify-content-center border-end pe-4">
+                <div class="col-md-4 shadow-lg d-flex flex-column align-items-center justify-content-center border-end border-light pe-4">
                     <img src="<?= $poke['imagen'] ?>" class="img-fluid rounded-start" style="max-height: 400px; object-fit: contain; padding: 20px;">
                 </div>
-                <div class="col-md-8 ps-4 bg-gray-400 fuentelinda">
+                <div class="col-md-8 ps-4 bg-gray-400 fuentelinda p-3">
                     <div class="card-body">
                         <h5 class="card-title fs-3 fw-bold">#<?= $poke['numero'] ?> - <?= $poke['nombre'] ?></h5>
                         <p class="card-text"><?= $poke['descripcionLarga'] ?></p>
-                        <p class="card-text">
-                            <strong>Tipo:</strong>
-                            <img src="tiposPokemones/tipo<?= ucfirst($poke['tipo']) ?>.png" style="width: 32px;">
-                        </p>
-                        <p class="card-text">
+
+                        <div class="card-text d-flex justify-content-between align-items-baseline">
+
+                            <div>
+                                <strong>Tipo:</strong> <img src="tiposPokemones/tipo<?= ucfirst($poke['tipo']) ?>.png" style="width: 32px;">
+                            </div>
+
+                            <div>
                             <strong>Región:</strong> <?= $poke['region'] ?>
-                        </p>
+                            </div>
+
+                            <div>
+                                <strong>Habilidad:</strong> <?= $poke['habilidad'] ?>
+                            </div>
+
+                            <div>
+                                <strong>Categoria:</strong> <?= $poke['categoria'] ?>
+                            </div>
+
+                        </div>
+
+
                     </div>
                 </div>
             <?php endif; ?>

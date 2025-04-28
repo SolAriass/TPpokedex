@@ -1,5 +1,12 @@
-
 <?php
+
+session_start();
+
+if (!isset($_SESSION['usuario'])) {
+    header('Location: index.php');
+    exit;
+}
+
 
 $baseDeDatos = mysqli_connect('localhost', 'root', '', 'pokedex') or die("Error al conectar a la base de datos");
 
@@ -23,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $numero = $_POST["numero"];
         $region = $_POST["region"];
 
-        $imagen = 'fotoPokemones/' . $_POST["nombre"] . ".png";
+        $imagen = 'fotoPokemones/' . ucfirst($nombre) . ".png";
 
 
         $query = "INSERT INTO pokemones (numero, nombre, imagen, tipo, descripcion, descripcionLarga ,region)
@@ -32,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         mysqli_query($baseDeDatos, $query);
 
 
-        header("Location: vistaAdmin.php");
+        header("Location: index.php");
         exit();
     }
 }
@@ -67,9 +74,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="container w-75 justify-content-center align-items-center">
 <form action="agregarPokemon.php" method="post" enctype="multipart/form-data" class="bg-gray-400 p-4 m-3 rounded d-flex justify-content-center flex-column">
     <div class="container d-flex justify-content-center">
-        <img src="logos/logopokebola.png" class="img-fluid" style="width: 7.5em; height: auto;" alt="Logo">
-        <h1 class="text-center">Agregue su pokemon</h1>
-        <img src="logos/logopokebola.png" class="img-fluid" style="width: 7.5em; height: auto" alt="Logo">
+        <img src="logos/pokebola.png" class="img-fluid" style="width: 3em; height: 3em;" alt="Logo">
+        <h1 class="text-center px-3">Agregue su pokemon</h1>
+        <img src="logos/pokebola.png" class="img-fluid" style="width: 3em; height: 3em" alt="Logo">
     </div>
     <p class="text-center blockquote-footer m-2">ingrese los datos requeridos para agregar a su pokemon con exito</p>
     <div class="mb-3 mt-3">
@@ -89,8 +96,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="text" class="form-control transparencia border-black" id="descripcion" placeholder="Ej: es una criatura veloz..." name="descripcion">
     </div>
     <div class="mb-3 mt-3">
-        <label for="descripcion" class="form-label fw-bold">Descripcion del pokemon</label>
-        <textarea name="descripcion" id="descripcion" cols="10" rows="3" class="form-control transparencia border-black" placeholder="Ej: Es la evolución de Slowpoke cuando una Shellder se aferra a su cola. Aunque parece distraído y lento, cuenta con poderes psíquicos notables y una gran resistencia. Es tranquilo por naturaleza y rara vez se altera...."></textarea>
+        <label for="descripcionLarga" class="form-label fw-bold">Descripcion del pokemon</label>
+        <textarea name="descripcionLarga" id="descripcionLarga" cols="10" rows="3" class="form-control transparencia border-black" placeholder="Ej: Es la evolución de Slowpoke cuando una Shellder se aferra a su cola. Aunque parece distraído y lento, cuenta con poderes psíquicos notables y una gran resistencia. Es tranquilo por naturaleza y rara vez se altera...."></textarea>
 
     </div>
     <div class="mb-3 mt-3">

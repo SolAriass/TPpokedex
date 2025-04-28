@@ -19,20 +19,17 @@ if (isset($_SESSION['usuario'])) {
   <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
   <style>
     body {
-      background-color: #d1fae5;
       font-family: 'Montserrat', sans-serif;
     }
 
     .login-container {
       max-width: 600px;
       padding: 40px;
-      background: white;
       border-radius: 15px;
-      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
     }
 
     .logo {
-      width: 80px;
+      width: 70px;
       height: auto;
       margin-bottom: 20px;
     }
@@ -48,10 +45,10 @@ if (isset($_SESSION['usuario'])) {
   </style>
 </head>
 
-<body>
+<body class="bg-gray-200">
 
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
-  <div class="login-container text-center">
+  <div class="login-container text-center bg-gray-400 shadow-lg">
     <img src="logos/logopokebola.png" class="logo" alt="Logo Pokedex">
 
     <h2 class="fw-bold mb-4">Iniciar sesión</h2>

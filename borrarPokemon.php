@@ -1,19 +1,22 @@
 <?php
-$id = isset($_POST['id']) ? $_POST['id'] : "";
-$nombrepoke = isset($_POST['nombrepoke']) ? $_POST['nombrepoke'] : "";
+
+session_start();
+
+if (!isset($_SESSION['usuario'])) {
+    header('Location: index.php');
+    exit;
+}
+
+
+$idPokemon = isset($_POST['idPoke']) ? $_POST['idPoke'] : 0;
+
+$nombrepoke = isset($_POST['nombrepoke']) ? $_POST['nombrepoke'] : " ";
 
 $baseDeDatos = mysqli_connect('localhost', 'root', '', 'pokedex') or die("Error al conectar a la base de datos");
 
-//$modificar = $_POST['modificar'];
-$eliminar = $_POST['eliminar'];
-//if ($modificar){
-
-  //  include("modificar.php");
-    //mandar a otra vista para modificar los datos
-//}
-if ($eliminar){
+if($idPokemon != 0){
     //CREAR QUERY DE ELIMINAR
-    $query = "DELETE FROM pokemones WHERE id = '$id'";
+    $query = "DELETE FROM pokemones WHERE id = '$idPokemon'";
 
     $resultado = mysqli_query($baseDeDatos, $query);
 
@@ -30,7 +33,9 @@ if ($eliminar){
         }
     }
 
-    header('location: vistaAdmin.php');
+    header('location: index.php');
     exit();
 }
+
+
 

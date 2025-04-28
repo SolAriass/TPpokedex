@@ -78,7 +78,7 @@ for ($i=0; $i < mysqli_num_rows($datos); $i++) {
                     <div class="card-footer mt-auto">
 
                         <div class="container d-flex justify-content-around">
-                            <form action="acciones.php" method="post" enctype="multipart/form-data" class="container d-flex justify-content-around">
+                            <form action="borrarPokemon.php" method="post" enctype="multipart/form-data" class="container d-flex justify-content-around">
                                 <input type="hidden" value="<?=$poke['id']?>" name="id" id="id">
                                 <input type="hidden" value="<?=$poke['nombre']?>" name="nombrepoke" id="nombrepoke">
                                 <input class="btn btn-outline-dark" type="submit" name="eliminar" id="eliminar" value="eliminar" onclick="confirm('desea eliminar?')">

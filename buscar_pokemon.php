@@ -1,4 +1,6 @@
 <?php
+
+
 function buscarPokemon($pokemones, $busqueda) {
     $pokemonesFiltrados = [];
     $mensaje = '';
