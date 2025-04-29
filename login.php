@@ -17,9 +17,11 @@ if (isset($_SESSION['usuario'])) {
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="css/colores.css" rel="stylesheet">
   <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+
   <style>
     body {
       font-family: 'Montserrat', sans-serif;
+        background: linear-gradient(to bottom, #eeeeee, #aaaaaa);
     }
 
     .login-container {
@@ -29,19 +31,11 @@ if (isset($_SESSION['usuario'])) {
     }
 
     .logo {
-      width: 70px;
+      width: 80px;
       height: auto;
       margin-bottom: 20px;
     }
 
-    .btn-login {
-      background-color: #0d6efd;
-      color: white;
-    }
-
-    .btn-login:hover {
-      background-color: #0b5ed7;
-    }
   </style>
 </head>
 
@@ -49,10 +43,10 @@ if (isset($_SESSION['usuario'])) {
 
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
   <div class="login-container text-center bg-gray-400 shadow-lg">
-    <img src="logos/logopokebola.png" class="logo" alt="Logo Pokedex">
+    <img src="imagenes/logos/pokemonLogo.png" class="logo" alt="Logo Pokedex">
 
     <h2 class="fw-bold mb-4">Iniciar sesión</h2>
-
+<!--
     <form action="procesar_login.php" method="POST">
       <div class="form-floating mb-3">
         <input type="text" name="usuario" class="form-control" id="usuario" placeholder="Usuario" required>
@@ -66,6 +60,24 @@ if (isset($_SESSION['usuario'])) {
 
       <button type="submit" class="btn btn-login w-100">Entrar</button>
     </form>
+
+-->
+      <form action="procesar_login.php" method="POST">
+          <div class="form-group">
+              <label for="usuario">Usuario</label>
+              <input type="text" name="usuario" class="form-control" id="usuario" placeholder="Usuario" required>
+          </div>
+          <div class="form-group">
+              <label for="pass" class="pt-2">Contraseña</label>
+              <input type="password" name="pass" class="form-control" id="pass" placeholder="Contraseña" required>
+          </div>
+          <br>
+          <button type="submit" class="btn btn-dark w-100">Entrar</button>
+      </form>
+
+
+
+
     <?php if (isset($_GET['error'])): ?>
       <p class="mt-4">Usuario o contraseña incorrectos</p>
     <?php endif; ?>

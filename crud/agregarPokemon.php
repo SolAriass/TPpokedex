@@ -19,13 +19,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $tipo = $_POST["tipo"];
         $descripcionLarga = $_POST["descripcionLarga"];
 
+
+        $importante = '../imagenes';
         $nombreImagen = $_FILES["imagen"]["name"]; //nombre archivo
         $rutaTemporal = $_FILES["imagen"]["tmp_name"];
-        $carpetaNueva = 'fotoPokemones/';
+
+        $carpetaNueva = '/fotoPokemones/';
 
         $extension = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
         $nuevoNombreArchivo = ucfirst($nombre) . '.' . $extension;
-        move_uploaded_file($rutaTemporal, $carpetaNueva.$nuevoNombreArchivo);
+        move_uploaded_file($rutaTemporal, $importante.$carpetaNueva.$nuevoNombreArchivo);
 
         $numero = $_POST["numero"];
         $region = $_POST["region"];
@@ -41,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         mysqli_query($baseDeDatos, $query);
 
 
-        header("Location: index.php");
+        header("Location: ../index.php");
         exit();
     }
 }
@@ -55,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Agregar pokemon</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/colores.css" rel="stylesheet">
+    <link href="../css/colores.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <style>
@@ -76,9 +79,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="container w-75 justify-content-center align-items-center">
 <form action="agregarPokemon.php" method="post" enctype="multipart/form-data" class="bg-gray-400 p-4 m-3 rounded d-flex justify-content-center flex-column">
     <div class="container d-flex justify-content-center">
-        <img src="logos/pokebola.png" class="img-fluid" style="width: 3em; height: 3em;" alt="Logo">
+        <img src="../imagenes/logos/pokebola.png" class="img-fluid" style="width: 3em; height: 3em;" alt="Logo">
         <h1 class="text-center px-3">Agregue su pokemon</h1>
-        <img src="logos/pokebola.png" class="img-fluid" style="width: 3em; height: 3em" alt="Logo">
+        <img src="../imagenes/logos/pokebola.png" class="img-fluid" style="width: 3em; height: 3em" alt="Logo">
     </div>
     <p class="text-center blockquote-footer m-2">ingrese los datos requeridos para agregar a su pokemon con exito</p>
     <div class="mb-3 mt-3">
@@ -118,15 +121,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label for="tipo" class="form-label fw-bold ">Tipo del pokemon</label>
         <select class="form-select transparencia border-black" name="tipo" id="tipo">
             <option value="0" selected disabled>Seleccionar un tipo de pokemon</option>
-            <option value="agua">agua</option>
-            <option value="fuego">fuego</option>
-            <option value="bicho">bicho</option>
-            <option value="planta">planta</option>
-            <option value="eléctrico">eléctrico</option>
-            <option value="normal">normal</option>
-            <option value="hada">hada</option>
-            <option value="tierra">tierra</option>
-            <option value="veneno">veneno</option>
+            <option value="1">agua</option>
+            <option value="2">fuego</option>
+            <option value="3">bicho</option>
+            <option value="4">planta</option>
+            <option value="5">eléctrico</option>
+            <option value="6">normal</option>
+            <option value="7">hada</option>
+            <option value="8">tierra</option>
+            <option value="9">veneno</option>
         </select>
 
     </div>
@@ -134,5 +137,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <button type="submit" class="btn btn-dark mb-2 mt-3 w-50 align-self-center">Agregue su pokemon</button>
 </form>
 </div>
+
+
+
+<footer class="bg-dark text-white text-center py-3 mt-auto">
+    <div class="container">
+        <small>| &copy; <?= date("Y") ?> |
+            <small class="fw-bold">
+                Arias Sol - Bernacchia Julieta -
+                Bon Nicolás - De Oro Martin - Recchia, Javier
+            </small>
+            | Trabajo Práctico N°1 - Pokedex |</small>
+    </div>
+</footer>
+
 </body>
 </html>

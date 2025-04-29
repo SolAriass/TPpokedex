@@ -16,7 +16,10 @@ if (isset($_GET['id'])){
 $baseDeDatos = mysqli_connect('localhost', 'root', '', 'pokedex') or die("Error al conectar a la base de datos");
 
 // Obtener datos
-$datos = mysqli_query($baseDeDatos, "SELECT * FROM pokemones WHERE id = $id");
+$datos = mysqli_query($baseDeDatos, "SELECT pokemones.*, tipo.* 
+FROM pokemones 
+    JOIN tipo ON pokemones.tipo = tipo.idTipo
+         WHERE pokemones.id = $id");
 
 $poke = '';
 //verificar si volvio algo
@@ -25,16 +28,7 @@ if ($datos && mysqli_num_rows($datos) > 0) {
 }
 ?>
 
-<!--
 
-<?php if ($poke): ?>
-    <img src="<?= htmlspecialchars($poke['imagen']) ?>" class="img-fluid m-4" style="max-height: 150px;">
-    <img src="tiposPokemones/tipo<?= ucfirst($poke['tipo']) ?>.png" style="width: 28px">
-    #<?= $poke['numero'] ?> -
-    <?= $poke['nombre'] ?>
-    <?= $poke['descripcionLarga'] ?>
-<?php endif; ?>
--->
 <!doctype html>
 <html lang="en">
 <head>
@@ -59,13 +53,13 @@ if ($datos && mysqli_num_rows($datos) > 0) {
 
 <div class="container-fluid d-flex shadow rounded justify-content-between align-items-center py-3 bg-gray-100 px-5">
     <a href="index.php">
-        <img src="logos/pokebola.png" class="img-fluid rounded" style="width: 50px; height: auto;" alt="Logo">
+        <img src="imagenes/logos/pokebola.png" class="img-fluid rounded" style="width: 50px; height: auto;" alt="Logo">
     </a>
 
     <h1 class="mb-0 flex-grow-1 text-center fw-bold">Pokedex</h1>
 
     <a href="index.php">
-        <img src="logos/pokebola.png" class="img-fluid rounded" style="width: 50px; height: auto;" alt="Logo">
+        <img src="imagenes/logos/pokebola.png" class="img-fluid rounded" style="width: 50px; height: auto;" alt="Logo">
     </a>
 </div>
 
@@ -76,17 +70,18 @@ if ($datos && mysqli_num_rows($datos) > 0) {
         <div class="row g-0">
             <?php if ($poke): ?>
                 <div class="col-md-4 shadow-lg d-flex flex-column align-items-center justify-content-center border-end border-light pe-4">
-                    <img src="<?= $poke['imagen'] ?>" class="img-fluid rounded-start" style="max-height: 400px; object-fit: contain; padding: 20px;">
+                    <img src="imagenes/<?= $poke['imagen'] ?>" class="img-fluid rounded-start" style="max-height: 400px; object-fit: contain; padding: 20px;">
                 </div>
                 <div class="col-md-8 ps-4 bg-gray-400 fuentelinda p-3">
-                    <div class="card-body">
-                        <h5 class="card-title fs-3 fw-bold">#<?= $poke['numero'] ?> - <?= $poke['nombre'] ?></h5>
-                        <p class="card-text"><?= $poke['descripcionLarga'] ?></p>
+                    <div class="card-body d-flex flex-column h-100">
 
-                        <div class="card-text d-flex justify-content-between align-items-baseline">
+                        <h5 class="card-title fs-3 fw-bold">#<?= $poke['numero'] ?> - <?= $poke['nombre'] ?></h5>
+                        <p class="card-text mt-auto"><?= $poke['descripcionLarga'] ?></p>
+
+                        <div class="card-text d-flex justify-content-between align-items-baseline mt-auto">
 
                             <div>
-                                <strong>Tipo:</strong> <img src="tiposPokemones/tipo<?= ucfirst($poke['tipo']) ?>.png" style="width: 32px;">
+                                <strong>Tipo:</strong> <img src="imagenes/tiposPokemones/tipo<?= ucfirst($poke['nombreTipo']) ?>.png" style="width: 32px;">
                             </div>
 
                             <div>
@@ -115,6 +110,16 @@ if ($datos && mysqli_num_rows($datos) > 0) {
 
 
 
+<footer class="bg-dark text-white text-center py-3 mt-auto">
+    <div class="container">
+        <small>| &copy; <?= date("Y") ?> |
+            <small class="fw-bold">
+                Arias Sol - Bernacchia Julieta -
+                Bon Nicolás - De Oro Martin - Recchia, Javier
+            </small>
+            | Trabajo Práctico N°1 - Pokedex |</small>
+    </div>
+</footer>
 
 
 

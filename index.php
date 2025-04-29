@@ -12,7 +12,11 @@ $baseDeDatos = new ConexionBD();
 
 //obtener datos
 
-$datos = $baseDeDatos->query("SELECT * FROM pokemones");
+$datos = $baseDeDatos->query("SELECT pokemones.*, tipo.* 
+    FROM pokemones 
+    JOIN tipo ON pokemones.tipo = tipo.idTipo");
+
+
 
 
 //conexion base de datos pokedex
@@ -25,12 +29,15 @@ $baseDeDatos = mysqli_connect('localhost', 'root', '', 'pokedex') or die("Error 
 
 $pokemones= [] ;
 
+
 for ($i=0; $i < mysqli_num_rows($datos); $i++) {
     $fila = mysqli_fetch_array($datos);
     $pokemones[] = $fila;
 }
 
-include "buscar_pokemon.php";
+
+
+include "crud/buscar_pokemon.php";
 
 // Variables por defecto
 $pokemonesFiltrados = $pokemones;
@@ -62,6 +69,7 @@ if (isset($_GET['buscador']) && $_GET['buscador'] !== '') {
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <style>
+
         h1 {
             font-family: "Exo 2";
             font-optical-sizing: auto;
@@ -86,7 +94,7 @@ if (isset($_GET['buscador']) && $_GET['buscador'] !== '') {
 <div class="container mt-4">
     <div class="container d-flex justify-content-between align-items-baseline my-4 flex-wrap gap-3">
         <a href="index.php">
-            <img src="logos/pokebola.png" class="img-fluid rounded" style="width: 50px; height: auto;" alt="Logo">
+            <img src="imagenes/logos/pokebola.png" class="img-fluid rounded" style="width: 50px; height: auto;" alt="Logo">
         </a>
 
         <h1 class="mb-0 flex-grow-1 text-center fw-bold">Pokedex</h1>
@@ -109,7 +117,7 @@ if (isset($_GET['buscador']) && $_GET['buscador'] !== '') {
 
     <!-- Botón para agregar un nuevo Pokémon -->
     <?php if (isset($_SESSION['usuario'])): ?>
-        <a href="agregarPokemon.php" class="btn btn-outline-dark mt-3 w-100">Agregar Pokemon +</a>
+        <a href="crud/agregarPokemon.php" class="btn btn-outline-dark mt-3 w-100">Agregar Pokemon +</a>
     <?php endif; ?>
 
     <!-- Mensaje si no se encuentran resultados -->
@@ -124,12 +132,12 @@ if (isset($_GET['buscador']) && $_GET['buscador'] !== '') {
                 <div class="card hover-grow h-100 shadow-lg d-flex flex-column bg-gray-400 fuentelinda">
 
                     <h5 class="card-header text-center fw-bold bg-white border-bottom-0">
-                        #<?= $poke['numero'] ?> - <?= $poke['nombre'] ?> - <img src="tiposPokemones/tipo<?= ucfirst($poke['tipo']) ?>.png" style="width: 28px">
+                        #<?= $poke['numero'] ?> - <?= $poke['nombre'] ?> - <img src="imagenes/tiposPokemones/tipo<?= ucfirst($poke['nombreTipo']) ?>.png" style="width: 28px">
                     </h5>
 
                     <div class="d-flex justify-content-center align-items-center flex-grow-1 p-3">
                         <a href="vistaPokemon.php?id=<?= $poke['id'] ?>">
-                        <img src="<?= $poke['imagen'] ?>" class="img-fluid m-4" style="max-height: 150px;">
+                        <img src="imagenes/<?= $poke['imagen'] ?>" class="img-fluid m-4" style="max-height: 150px;">
                         </a>
                     </div>
 
@@ -139,16 +147,8 @@ if (isset($_GET['buscador']) && $_GET['buscador'] !== '') {
                         <!-- esto se deberia ver cuando inicia sesion -->
                         <?php if (isset($_SESSION['usuario'])): ?>
                         <div class="container d-flex justify-content-around">
-
-
-                        <form action="borrarPokemon.php" method="post" enctype="multipart/form-data" class="" id="formEliminar" onsubmit="return confirm('¿Seguro que desea eliminar a <?=$poke['nombre'] ?>?')">
-                            <input type="hidden" value="<?=$poke['id']?>" name="idPoke">
-                            <input type="hidden" value="<?=$poke['nombre']?>" name="nombrepoke">
-
-                            <input class="btn btn-outline-dark" type="submit" name="eliminar" id="eliminar" value="Eliminar">
-                        </form>
-
-                        <a href="modificar.php?id=<?=$poke['id']?>" class="btn btn-outline-dark">Modificar</a>
+                            <a href="crud/borrarPokemon.php?id=<?=$poke['id']?>" class="btn btn-outline-dark" onclick="return confirm('¿seguro quiere eliminar?')">Eliminar</a>
+                            <a href="crud/modificar.php?id=<?=$poke['id']?>" class="btn btn-outline-dark">Modificar</a>
                         </div>
 
 
@@ -160,7 +160,19 @@ if (isset($_GET['buscador']) && $_GET['buscador'] !== '') {
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+<footer class="bg-dark text-white text-center py-3 mt-auto">
+    <div class="container">
+        <small>| &copy; <?= date("Y") ?> |
+            <small class="fw-bold">
+             Arias Sol - Bernacchia Julieta -
+             Bon Nicolás - De Oro Martin - Recchia, Javier
+         </small>
+            | Trabajo Práctico N°1 - Pokedex |</small>
+    </div>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

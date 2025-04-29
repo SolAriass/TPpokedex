@@ -64,18 +64,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     if($imagenPokemon != null){
 
+        //$nombreImagen = $_FILES["imagen"]["name"]; //nombre archivo
+        $rutaTemporal = $_FILES["imagen"]["tmp_name"];
+        $importante = '../imagenes';
+        $carpetaNueva = '/fotoPokemones/';
+        $extension = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
+        $nuevoNombreArchivo = ucfirst($nombrePokemon) . '.' . $extension;
+
+
+        $carpeta = "../imagenes/fotoPokemones/";
+        $archivos = scandir($carpeta);
+
+        if(!empty($pokemon['imagen'])){
+
+            foreach ($archivos as $archivo) {
+                if(strpos($archivo, $pokemon['nombre']) !== false){ //busco en ese archivo que contenga ese nombre, devuelve un valor entero si coincide, sino falso
+                    $rutaImagen = $carpeta.$archivo; //armo la ruta para verificar que exista
+                    if(file_exists($rutaImagen)){ //confirmo que exista realmente
+                        unlink($rutaImagen); //eliminar archivo
+                    }
+                    break; //corto el bucle
+                }
+
+
+            }
+        }
+
         if($_FILES['imagen']['error'] === 0 && isset($_FILES['imagen'])){
-            //$nombreImagen = $_FILES["imagen"]["name"]; //nombre archivo
-            $rutaTemporal = $_FILES["imagen"]["tmp_name"];
-            $carpetaNueva = 'fotoPokemones/';
 
-            $extension = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
-            $nuevoNombreArchivo = ucfirst($nombrePokemon) . '.' . $extension;
+            move_uploaded_file($rutaTemporal, $importante.$carpetaNueva.$nuevoNombreArchivo);
 
-            move_uploaded_file($rutaTemporal, $carpetaNueva.$nuevoNombreArchivo);
+            $url = 'fotoPokemones/'.$nuevoNombreArchivo;
 
-            $sql = "UPDATE pokemones SET imagen = '$nuevoNombreArchivo' WHERE id= '$id'";
+            $sql = "UPDATE pokemones SET imagen = '$url' WHERE id= '$id'";
             mysqli_query($baseDeDatos, $sql);
+
+
+            //agregar que se borre la imagen vieja que existia antes de la actualizada
         }
 
 
@@ -83,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-    header("location: index.php");
+    header("location: ../index.php");
     exit();
 }
 
@@ -98,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Modificar pokemon</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/colores.css" rel="stylesheet">
+    <link href="../css/colores.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <style>
@@ -119,9 +144,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="container w-75 justify-content-center align-items-center">
     <form action="modificar.php?id=<?= $pokemon['id']?>" method="post" enctype="multipart/form-data" class="bg-gray-400 p-4 m-3 rounded d-flex justify-content-center flex-column">
         <div class="container d-flex justify-content-center">
-            <img src="logos/pokebola.png" class="img-fluid" style="width: 3em; height: 3em;" alt="Logo">
+            <img src="../imagenes/logos/pokebola.png" class="img-fluid" style="width: 3em; height: 3em;" alt="Logo">
             <h1 class="text-center px-3">Modificar datos de su pokemon</h1>
-            <img src="logos/pokebola.png" class="img-fluid" style="width: 3em; height: 3em" alt="Logo">
+            <img src="../imagenes/logos/pokebola.png" class="img-fluid" style="width: 3em; height: 3em" alt="Logo">
         </div>
         <p class="text-center blockquote-footer m-2">modifique los datos que desee a su pokemon favorito</p>
         <div class="mb-3 mt-3">
@@ -161,15 +186,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="tipo" class="form-label fw-bold ">Tipo del pokemon</label>
             <select class="form-select transparencia border-black" name="tipo" id="tipo"">
                 <option value="0" selected disabled>Seleccionar un tipo de pokemon</option>
-                <option value="agua" <?= $pokemon['tipo'] == 'agua' ? 'selected' : '' ?>>agua</option>
-                <option value="fuego" <?= $pokemon['tipo'] == 'fuego' ? 'selected' : '' ?>>fuego</option>
-                <option value="bicho" <?= $pokemon['tipo'] == 'bicho' ? 'selected' : '' ?>>bicho</option>
-                <option value="planta" <?= $pokemon['tipo'] == 'planta' ? 'selected' : '' ?>>planta</option>
-                <option value="eléctrico" <?= $pokemon['tipo'] == 'eléctrico' ? 'selected' : '' ?>>eléctrico</option>
-                <option value="normal" <?= $pokemon['tipo'] == 'normal' ? 'selected' : '' ?>>normal</option>
-                <option value="hada" <?= $pokemon['tipo'] == 'hada' ? 'selected' : '' ?>>hada</option>
-                <option value="tierra" <?= $pokemon['tipo'] == 'tierra' ? 'selected' : '' ?>>tierra</option>
-                <option value="veneno" <?= $pokemon['tipo'] == 'veneno' ? 'selected' : '' ?>>veneno</option>
+                <option value="1" <?= $pokemon['tipo'] == '1' ? 'selected' : '' ?>>agua</option>
+                <option value="2" <?= $pokemon['tipo'] == '2' ? 'selected' : '' ?>>fuego</option>
+                <option value="3" <?= $pokemon['tipo'] == '3' ? 'selected' : '' ?>>bicho</option>
+                <option value="4" <?= $pokemon['tipo'] == '4' ? 'selected' : '' ?>>planta</option>
+                <option value="5" <?= $pokemon['tipo'] == '5' ? 'selected' : '' ?>>eléctrico</option>
+                <option value="6" <?= $pokemon['tipo'] == '6' ? 'selected' : '' ?>>normal</option>
+                <option value="7" <?= $pokemon['tipo'] == '7' ? 'selected' : '' ?>>hada</option>
+                <option value="8" <?= $pokemon['tipo'] == '8' ? 'selected' : '' ?>>tierra</option>
+                <option value="9" <?= $pokemon['tipo'] == '9' ? 'selected' : '' ?>>veneno</option>
             </select>
 
         </div>
@@ -177,5 +202,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button type="submit" class="btn btn-dark mb-2 mt-3 w-50 align-self-center">Modificar</button>
     </form>
 </div>
+
+
+<footer class="bg-dark text-white text-center py-3 mt-auto">
+    <div class="container">
+        <small>| &copy; <?= date("Y") ?> |
+            <small class="fw-bold">
+                Arias Sol - Bernacchia Julieta -
+                Bon Nicolás - De Oro Martin - Recchia, Javier
+            </small>
+            | Trabajo Práctico N°1 - Pokedex |</small>
+    </div>
+</footer>
+
 </body>
 </html>
