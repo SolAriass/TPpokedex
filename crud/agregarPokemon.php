@@ -3,12 +3,16 @@
 session_start();
 
 if (!isset($_SESSION['usuario'])) {
-    header('Location: index.php');
+    header('Location: ../index.php');
     exit;
 }
 
+require ("../config/ConexionBD.php");
 
-$baseDeDatos = mysqli_connect('localhost', 'root', '', 'pokedex') or die("Error al conectar a la base de datos");
+use config\ConexionBD;
+
+$baseDeDatos = new ConexionBD();
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if(isset($_POST["nombre"]) && isset($_POST["descripcion"]) && isset($_POST["tipo"]) && isset($_POST["region"]) &&
@@ -28,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $extension = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
         $nuevoNombreArchivo = ucfirst($nombre) . '.' . $extension;
+
         move_uploaded_file($rutaTemporal, $importante.$carpetaNueva.$nuevoNombreArchivo);
 
         $numero = $_POST["numero"];
@@ -37,11 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $imagen = 'fotoPokemones/' . ucfirst($nombre) . ".png";
 
-
-        $query = "INSERT INTO pokemones (numero, nombre, imagen, tipo, habilidad, categoria, descripcion, descripcionLarga ,region)
-              VALUES ('$numero', '$nombre', '$imagen', '$tipo', '$habilidad', '$categoria', '$descripcion','$descripcionLarga' , '$region')";
-
-        mysqli_query($baseDeDatos, $query);
+        $baseDeDatos->query("INSERT INTO pokemones (numero, nombre, imagen, tipo, habilidad, categoria, descripcion, descripcionLarga ,region)
+              VALUES ('$numero', '$nombre', '$imagen', '$tipo', '$habilidad', '$categoria', '$descripcion','$descripcionLarga' , '$region')");
 
 
         header("Location: ../index.php");

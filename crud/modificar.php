@@ -3,7 +3,7 @@
 session_start();
 
 if (!isset($_SESSION['usuario'])) {
-    header('Location: index.php');
+    header('Location: ../index.php');
     exit;
 }
 
@@ -75,22 +75,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $carpeta = "../imagenes/fotoPokemones/";
         $archivos = scandir($carpeta);
 
-        if(!empty($pokemon['imagen'])){
 
-            foreach ($archivos as $archivo) {
-                if(strpos($archivo, $pokemon['nombre']) !== false){ //busco en ese archivo que contenga ese nombre, devuelve un valor entero si coincide, sino falso
-                    $rutaImagen = $carpeta.$archivo; //armo la ruta para verificar que exista
-                    if(file_exists($rutaImagen)){ //confirmo que exista realmente
-                        unlink($rutaImagen); //eliminar archivo
-                    }
-                    break; //corto el bucle
-                }
-
-
-            }
-        }
 
         if($_FILES['imagen']['error'] === 0 && isset($_FILES['imagen'])){
+
+            if(!empty($pokemon['imagen'])){
+
+                foreach ($archivos as $archivo) {
+                    if(strpos($archivo, $pokemon['nombre']) !== false){ //busco en ese archivo que contenga ese nombre, devuelve un valor entero si coincide, sino falso
+                        $rutaImagen = $carpeta.$archivo; //armo la ruta para verificar que exista
+                        if(file_exists($rutaImagen)){ //confirmo que exista realmente
+                            unlink($rutaImagen); //eliminar archivo
+                        }
+                        break; //corto el bucle
+                    }
+
+
+                }
+            }
+
 
             move_uploaded_file($rutaTemporal, $importante.$carpetaNueva.$nuevoNombreArchivo);
 

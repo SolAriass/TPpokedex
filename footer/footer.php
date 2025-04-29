@@ -5,7 +5,7 @@
         <small>| &copy; <?= date("Y") ?> |
             <small class="fw-bold">
                 Arias Sol - Bernacchia Julieta -
-                Bon Nicolás - De Oro Martin - Recchia, Javier
+                Bon Nicolás - De Oro Martin - Recchia Javier
             </small>
             | Trabajo Práctico N°1 - Pokedex |</small>
     </div>

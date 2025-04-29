@@ -3,10 +3,14 @@ session_start();
 
 // Si ya está logueado, redirigir a la página principal
 if (isset($_SESSION['usuario'])) {
-  header("Location: index.php");
+  header("Location: ../index.php");
   exit();
 }
+
+
 ?>
+
+
 
 <!doctype html>
 <html lang="es">
@@ -15,7 +19,7 @@ if (isset($_SESSION['usuario'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Iniciar sesión - Pokedex</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/colores.css" rel="stylesheet">
+  <link href="../css/colores.css" rel="stylesheet">
   <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 
   <style>
@@ -43,7 +47,10 @@ if (isset($_SESSION['usuario'])) {
 
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
   <div class="login-container text-center bg-gray-400 shadow-lg">
-    <img src="imagenes/logos/pokemonLogo.png" class="logo" alt="Logo Pokedex">
+    <a href="../index.php">
+        <img src="../imagenes/logos/pokemonLogo.png" class="logo" alt="Logo Pokedex">
+    </a>
+
 
     <h2 class="fw-bold mb-4">Iniciar sesión</h2>
 <!--
@@ -76,11 +83,10 @@ if (isset($_SESSION['usuario'])) {
       </form>
 
 
-
-
-    <?php if (isset($_GET['error'])): ?>
-      <p class="mt-4">Usuario o contraseña incorrectos</p>
-    <?php endif; ?>
+      <?php if (isset($_GET['error'])): ?>
+          <p class="mt-4">Usuario o contraseña incorrectos</p>
+          <a href="../index.php" class="link">Volver al home</a>
+      <?php endif; ?>
   </div>
 </div>
 

@@ -7,25 +7,12 @@ use config\ConexionBD;
 
 session_start();
 
-//conexion base de datos pokedex
 $baseDeDatos = new ConexionBD();
-
-//obtener datos
 
 $datos = $baseDeDatos->query("SELECT pokemones.*, tipo.* 
     FROM pokemones 
     JOIN tipo ON pokemones.tipo = tipo.idTipo");
 
-
-
-
-//conexion base de datos pokedex
-
-$baseDeDatos = mysqli_connect('localhost', 'root', '', 'pokedex') or die("Error al conectar a la base de datos");
-
-//obtener datos
-
-//$datos = mysqli_query($baseDeDatos, "SELECT * FROM pokemones");
 
 $pokemones= [] ;
 
@@ -36,8 +23,24 @@ for ($i=0; $i < mysqli_num_rows($datos); $i++) {
 }
 
 
+function buscarPokemon($pokemones, $busqueda) {
+    $pokemonesFiltrados = [];
+    $mensaje = '';
 
-include "crud/buscar_pokemon.php";
+    if ($busqueda !== '') {
+        foreach ($pokemones as $poke) {
+            if (stripos($poke['nombre'], $busqueda) === 0) {
+                $pokemonesFiltrados[] = $poke;
+            }
+        }
+
+        if (empty($pokemonesFiltrados)) {
+            $mensaje = "Pokémon no encontrado. Mostrando todos los pokemones:";
+        }
+    }
+
+    return array($pokemonesFiltrados, $mensaje);
+}
 
 // Variables por defecto
 $pokemonesFiltrados = $pokemones;
@@ -101,11 +104,11 @@ if (isset($_GET['buscador']) && $_GET['buscador'] !== '') {
 
         <?php if (isset($_SESSION['usuario'])): ?>
             <p class="text-center"><?php echo $_SESSION['usuario']; ?></p>
-            <form action="logout.php" method="post">
+            <form action="login/logout.php" method="post">
                 <button type="submit" class="btn btn-dark">Cerrar sesión</button>
             </form>
         <?php else : ?>
-            <a class="btn btn-dark" href="login.php">Iniciar sesión</a>
+            <a class="btn btn-dark" href="login/login.php">Iniciar sesión</a>
         <?php endif; ?>
     </div>
 
@@ -142,8 +145,10 @@ if (isset($_GET['buscador']) && $_GET['buscador'] !== '') {
                     </div>
 
                     <div class="card-footer mt-auto">
+                        <?php if (!isset($_SESSION['usuario'])): ?>
                         <p class="card-text text-center"><?= $poke['descripcion'] ?></p>
 
+                        <?php endif; ?>
                         <!-- esto se deberia ver cuando inicia sesion -->
                         <?php if (isset($_SESSION['usuario'])): ?>
                         <div class="container d-flex justify-content-around">
@@ -161,16 +166,8 @@ if (isset($_GET['buscador']) && $_GET['buscador'] !== '') {
 </div>
 
 
-<footer class="bg-dark text-white text-center py-3 mt-auto">
-    <div class="container">
-        <small>| &copy; <?= date("Y") ?> |
-            <small class="fw-bold">
-             Arias Sol - Bernacchia Julieta -
-             Bon Nicolás - De Oro Martin - Recchia, Javier
-         </small>
-            | Trabajo Práctico N°1 - Pokedex |</small>
-    </div>
-</footer>
+<?php require("footer/footer.php")
+?>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
