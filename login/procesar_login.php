@@ -1,6 +1,6 @@
 <?php
 
-require_once 'config/ConexionBD.php';
+require_once '../config/ConexionBD.php';
 use config\ConexionBD;
 
 session_start();
@@ -16,7 +16,7 @@ $resultado = $baseDeDatos->query($query);
 if (mysqli_num_rows($resultado) > 0) {
   $usuario = mysqli_fetch_assoc($resultado);
   $_SESSION['usuario'] = $usuario['usuario'];
-  header('location: index.php');
+  header('location: ../index.php');
   exit();
 } else {
   header("Location: login.php?error=1");
