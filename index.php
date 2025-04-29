@@ -169,6 +169,10 @@ if (isset($_GET['buscador']) && $_GET['buscador'] !== '') {
 <?php require("footer/footer.php")
 ?>
 
+
+<!-- -->
+
+
 <!-- Modal de Confirmación -->
 <div class="modal fade" id="confirmarEliminarModal" tabindex="-1" aria-labelledby="confirmarEliminarLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
