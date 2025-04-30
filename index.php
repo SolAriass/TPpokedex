@@ -125,7 +125,7 @@ if (isset($_GET['buscador']) && $_GET['buscador'] !== '') {
 
     <!-- Mensaje si no se encuentran resultados -->
     <?php if ($mensaje): ?>
-        <div class="alert alert-warning mt-4 text-center"><?= $mensaje ?></div>
+        <div class="alert alert-warning mt-4 text-center bg-gray-500 text-dark border-dark"><?= $mensaje ?></div>
     <?php endif; ?>
 
     <!-- Mostrar los resultados de la búsqueda o todos los pokemones -->
