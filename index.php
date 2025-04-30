@@ -152,7 +152,7 @@ if (isset($_GET['buscador']) && $_GET['buscador'] !== '') {
                         <!-- esto se deberia ver cuando inicia sesion -->
                         <?php if (isset($_SESSION['usuario'])): ?>
                         <div class="container d-flex justify-content-around">
-                            <a href="crud/borrarPokemon.php?id=<?=$poke['id']?>" class="btn btn-outline-dark" onclick="return confirm('¿seguro quiere eliminar?')">Eliminar</a>
+                            <a href="crud/borrarPokemon.php?id=<?=$poke['id']?>" class="btn btn-outline-dark btn-eliminar"  data-id="<?= $poke['id'] ?>"">Eliminar</a>
                             <a href="crud/modificar.php?id=<?=$poke['id']?>" class="btn btn-outline-dark">Modificar</a>
                         </div>
 
@@ -170,6 +170,57 @@ if (isset($_GET['buscador']) && $_GET['buscador'] !== '') {
 ?>
 
 
+<!-- -->
+
+
+<!-- Modal de Confirmación -->
+<div class="modal fade" id="confirmarEliminarModal" tabindex="-1" aria-labelledby="confirmarEliminarLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-gray-700 text-white">
+                <h5 class="modal-title" id="confirmarEliminarLabel">Confirmar Eliminación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                ¿Estás seguro de que querés eliminar este Pokémon?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white border rounded" data-bs-dismiss="modal">Cancelar</button>
+                <a href="#" id="btnConfirmarEliminar" class="btn btn-dark">Eliminar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const botonesEliminar = document.querySelectorAll(".btn-eliminar");
+        const confirmarBtn = document.getElementById("btnConfirmarEliminar");
+        const modal = new bootstrap.Modal(document.getElementById("confirmarEliminarModal"));
+
+        let idSeleccionado = null;
+
+        botonesEliminar.forEach(boton => {
+            boton.addEventListener("click", function (e) {
+                e.preventDefault();
+                idSeleccionado = this.getAttribute("data-id");
+                modal.show();
+            });
+        });
+
+        confirmarBtn.addEventListener("click", function () {
+            if (idSeleccionado) {
+                window.location.href = `crud/borrarPokemon.php?id=${idSeleccionado}`;
+            }
+        });
+    });
+</script>
+
+
+
 </body>
 </html>
