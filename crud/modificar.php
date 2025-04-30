@@ -7,7 +7,6 @@ if (!isset($_SESSION['usuario'])) {
     exit;
 }
 
-
 $id = $_GET["id"];
 
 $baseDeDatos = mysqli_connect("localhost", "root", "", "pokedex");
@@ -207,16 +206,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div>
 
 
-<footer class="bg-dark text-white text-center py-3 mt-auto">
-    <div class="container">
-        <small>| &copy; <?= date("Y") ?> |
-            <small class="fw-bold">
-                Arias Sol - Bernacchia Julieta -
-                Bon Nicolás - De Oro Martin - Recchia, Javier
-            </small>
-            | Trabajo Práctico N°1 - Pokedex |</small>
-    </div>
-</footer>
+<?php require("../footer/footer.php")
+?>
+
 
 </body>
 </html>
