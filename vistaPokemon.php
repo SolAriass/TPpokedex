@@ -1,22 +1,20 @@
 <?php
 
+require_once 'config/ConexionBD.php';
+
+use config\ConexionBD;
+
 session_start();
-
-if (!isset($_SESSION['usuario'])) {
-    header('Location: index.php');
-    exit;
-}
-
 
 //verificar el id
 if (isset($_GET['id'])){
     $id = $_GET['id'];
 }
 // Conexion base de datos pokedex
-$baseDeDatos = mysqli_connect('localhost', 'root', '', 'pokedex') or die("Error al conectar a la base de datos");
+$baseDeDatos = new ConexionBD();
 
 // Obtener datos
-$datos = mysqli_query($baseDeDatos, "SELECT pokemones.*, tipo.* 
+$datos = $baseDeDatos->query("SELECT pokemones.*, tipo.* 
 FROM pokemones 
     JOIN tipo ON pokemones.tipo = tipo.idTipo
          WHERE pokemones.id = $id");
@@ -50,19 +48,7 @@ if ($datos && mysqli_num_rows($datos) > 0) {
 </head>
 <body class="bg-gray-200 fuente">
 
-
-<div class="container-fluid d-flex shadow rounded justify-content-between align-items-center py-3 bg-gray-100 px-5">
-    <a href="index.php">
-        <img src="imagenes/logos/pokebola.png" class="img-fluid rounded" style="width: 50px; height: auto;" alt="Logo">
-    </a>
-
-    <h1 class="mb-0 flex-grow-1 text-center fw-bold">Pokedex</h1>
-
-    <a href="index.php">
-        <img src="imagenes/logos/pokebola.png" class="img-fluid rounded" style="width: 50px; height: auto;" alt="Logo">
-    </a>
-</div>
-
+<?php require('sections/header.php') ?>
 
 <div class="container-fluid d-flex justify-content-center align-items-start" style="min-height: calc(80vh); padding-top: 70px;">
 
@@ -107,7 +93,7 @@ if ($datos && mysqli_num_rows($datos) > 0) {
 </div>
 
 
-<?php require("footer/footer.php")
+<?php require("sections/footer.php")
 ?>
 
 

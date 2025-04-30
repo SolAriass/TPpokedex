@@ -7,10 +7,7 @@ if (isset($_SESSION['usuario'])) {
   exit();
 }
 
-
 ?>
-
-
 
 <!doctype html>
 <html lang="es">
