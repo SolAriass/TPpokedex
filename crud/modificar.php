@@ -160,6 +160,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="text" class="form-control transparencia border-black" id="nombre" name="nombre" value="<?= $pokemon['nombre']?>">
         </div>
         <div class="mb-3 mt-3">
+
+            <?php if (!empty($pokemon['imagen'])): ?>
+                <div class="mb-3">
+                    <label class="form-label fw-bold mb-4">Imagen actual</label><br>
+                    <div class="d-flex flex-column align-items-start g-2">
+                        <img src="../imagenes/<?= $pokemon['imagen'] ?>" alt="Imagen actual" style="width: 150px;">
+                        <br>
+                        <a href="../imagenes/<?= $pokemon['imagen'] ?>" download class="link text-dark">Descargar imagen</a>
+                    </div>
+
+                </div>
+            <?php endif; ?>
+
             <label for="imagen" class="form-label fw-bold">Imagen del pokemon</label>
             <input type="file" class="form-control transparencia border-black" id="imagen" name="imagen">
         </div>
