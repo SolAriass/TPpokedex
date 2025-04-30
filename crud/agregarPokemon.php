@@ -45,7 +45,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $baseDeDatos->query("INSERT INTO pokemones (numero, nombre, imagen, tipo, habilidad, categoria, descripcion, descripcionLarga ,region)
               VALUES ('$numero', '$nombre', '$imagen', '$tipo', '$habilidad', '$categoria', '$descripcion','$descripcionLarga' , '$region')");
 
+        $_SESSION['flash_msg'] = '¡Pokémon "' . $nombre . '" agregado correctamente!';
 
+        header("Location: ../index.php");
+        exit();
+    } else {
+        $_SESSION['flash_msg'] = "Hubo un error para subir el pokemon!";
         header("Location: ../index.php");
         exit();
     }
@@ -77,7 +82,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </style>
 </head>
 <body class="bg-gray-200 fuente">
-
 <div class="container w-75 justify-content-center align-items-center">
 <form action="agregarPokemon.php" method="post" enctype="multipart/form-data" class="bg-gray-400 p-4 m-3 rounded d-flex justify-content-center flex-column">
     <div class="container d-flex justify-content-center">
@@ -141,7 +145,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div>
 
 
-<?php require("../footer/footer.php")
+<?php require("../sections/footer.php")
 ?>
 
 

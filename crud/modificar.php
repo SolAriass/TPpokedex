@@ -7,15 +7,23 @@ if (!isset($_SESSION['usuario'])) {
     exit;
 }
 
-$id = $_GET["id"];
+require ("../config/ConexionBD.php");
 
-$baseDeDatos = mysqli_connect("localhost", "root", "", "pokedex");
+use config\ConexionBD;
+
+$baseDeDatos = new ConexionBD();
+
+$id = $_GET["id"];
 
 $sql = "SELECT * FROM pokemones WHERE id= '$id'";
 
-$resultado = mysqli_query($baseDeDatos, $sql);
+$resultado = $baseDeDatos->query($sql);
 
 $pokemon = mysqli_fetch_assoc($resultado);
+
+function updateVariable($variable,$valor) {
+
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -31,35 +39,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if($nombrePokemon != ''){
         $sql = "UPDATE pokemones SET nombre = '$nombrePokemon' WHERE id= '$id'";
-        mysqli_query($baseDeDatos, $sql);
+        $baseDeDatos->query($sql);
     }
     if($numeroPokemon != ''){
         $sql = "UPDATE pokemones SET numero = '$numeroPokemon' WHERE id= '$id'";
-        mysqli_query($baseDeDatos, $sql);
+        $baseDeDatos->query($sql);
     }
     if($descripcionPokemon != ''){
         $sql = "UPDATE pokemones SET descripcion = '$descripcionPokemon' WHERE id= '$id'";
-        mysqli_query($baseDeDatos, $sql);
+        $baseDeDatos->query($sql);
     }
     if($descripcionLarga != ''){
         $sql = "UPDATE pokemones SET descripcionLarga = '$descripcionLarga' WHERE id= '$id'";
-        mysqli_query($baseDeDatos, $sql);
+        $baseDeDatos->query($sql);
     }
     if($regionPokemon != ''){
         $sql = "UPDATE pokemones SET region = '$regionPokemon' WHERE id= '$id'";
-        mysqli_query($baseDeDatos, $sql);
+        $baseDeDatos->query($sql);
     }
     if($tipoPokemon != ''){
         $sql = "UPDATE pokemones SET tipo = '$tipoPokemon' WHERE id= '$id'";
-        mysqli_query($baseDeDatos, $sql);
+        $baseDeDatos->query($sql);
     }
     if($categoriaPokemon != ''){
         $sql = "UPDATE pokemones SET categoria = '$categoriaPokemon' WHERE id= '$id'";
-        mysqli_query($baseDeDatos, $sql);
+        $baseDeDatos->query($sql);
     }
     if($habilidadPokemon != ''){
         $sql = "UPDATE pokemones SET habilidad = '$habilidadPokemon' WHERE id= '$id'";
-        mysqli_query($baseDeDatos, $sql);
+        $baseDeDatos->query($sql);
     }
     if($imagenPokemon != null){
 
@@ -99,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $url = 'fotoPokemones/'.$nuevoNombreArchivo;
 
             $sql = "UPDATE pokemones SET imagen = '$url' WHERE id= '$id'";
-            mysqli_query($baseDeDatos, $sql);
+            $baseDeDatos->query($sql);
 
 
             //agregar que se borre la imagen vieja que existia antes de la actualizada
@@ -108,7 +116,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     }
 
-
+    $_SESSION['flash_msg']  = "¡Pokémon “{$nombrePokemon}” modificado correctamente!";
+    $_SESSION['flash_type'] = "warning";
 
     header("location: ../index.php");
     exit();
@@ -219,7 +228,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div>
 
 
-<?php require("../footer/footer.php")
+<?php require("../sections/footer.php")
 ?>
 
 

@@ -7,14 +7,13 @@ if (!isset($_SESSION['usuario'])) {
     exit;
 }
 
-$idPokemon = isset($_GET['id']) ? $_GET['id'] : 0;
-
 require ("../config/ConexionBD.php");
 
 use config\ConexionBD;
 
 $baseDeDatos = new ConexionBD();
 
+$idPokemon = isset($_GET['id']) ? $_GET['id'] : 0;
 
 if($idPokemon != 0){
 
@@ -38,6 +37,9 @@ if($idPokemon != 0){
             break; //corto el bucle
         }
     }
+
+    $_SESSION['flash_msg']  = "¡Pokémon “{$pokemon['nombre']}” eliminado correctamente!";
+    $_SESSION['flash_type'] = "danger";
 
     header('location: ../index.php');
     exit();
