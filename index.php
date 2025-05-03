@@ -31,7 +31,9 @@ function buscarPokemon($pokemones, $busqueda) {
 
     if ($busqueda !== '') {
         foreach ($pokemones as $poke) {
-            if (stripos($poke['nombre'], $busqueda) !== false) {
+            if (stripos($poke['nombre'], $busqueda) !== false ||
+                stripos($poke['nombreTipo'], $busqueda) !== false ||
+                stripos((string)$poke['numero'], $busqueda) !== false) {
                 $pokemonesFiltrados[] = $poke;
             }
         }
