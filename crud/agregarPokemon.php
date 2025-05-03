@@ -85,9 +85,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="container w-75 justify-content-center align-items-center">
 <form action="agregarPokemon.php" method="post" enctype="multipart/form-data" class="bg-gray-400 p-4 m-3 rounded d-flex justify-content-center flex-column">
     <div class="container d-flex justify-content-center">
+        <a href="../index.php">
         <img src="../imagenes/logos/pokebola.png" class="img-fluid" style="width: 3em; height: 3em;" alt="Logo">
+        </a>
         <h1 class="text-center px-3">Agregue su pokemon</h1>
+        <a href="../index.php">
         <img src="../imagenes/logos/pokebola.png" class="img-fluid" style="width: 3em; height: 3em" alt="Logo">
+        </a>
     </div>
     <p class="text-center blockquote-footer m-2">ingrese los datos requeridos para agregar a su pokemon con exito</p>
     <div class="mb-3 mt-3">
