@@ -67,7 +67,7 @@ if ($datos && mysqli_num_rows($datos) > 0) {
                         <div class="card-text d-flex justify-content-between align-items-baseline mt-auto">
 
                             <div>
-                                <strong>Tipo:</strong> <img src="imagenes/tiposPokemones/tipo<?= ucfirst($poke['nombreTipo']) ?>.png" style="width: 32px;">
+                                <strong>Tipo:</strong> <img src="imagenes/tiposPokemones/tipo<?= ucfirst($poke['nombreTipo']) ?>.png" style="width: 32px;" title="<?= ucfirst($poke['nombreTipo']) ?>">
                             </div>
 
                             <div>
