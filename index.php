@@ -96,7 +96,7 @@ if (isset($_GET['buscador']) && $_GET['buscador'] !== '') {
 
     </style>
 </head>
-<body class="bg-gray-200 fuente">
+<body class="bg-gray-200 fuente d-flex flex-column min-vh-100">
 
 <div class="container mt-4">
    <?php require('sections/header.php') ?>
